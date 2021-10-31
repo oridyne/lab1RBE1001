@@ -1,0 +1,7 @@
+build
+compile_commands.json
+*.log
+*.v5code
+makefile
+.cache
+vex
