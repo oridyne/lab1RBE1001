@@ -16,6 +16,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "vex_global.h"
 #include "vex_units.h"
 
 using namespace vex;
@@ -27,25 +28,25 @@ const float wheelTrack = 11; //13.5;
 const float degreesPerInch = (float)360.0 / wheelCircumference;
 
 void driveStraight(float inches) {
-  leftMotor.spinFor(directionType::fwd, gearRatio * inches * degreesPerInch,rotationUnits::deg, false);
-  rightMotor.spinFor(directionType::fwd, gearRatio * inches * degreesPerInch,rotationUnits::deg, true);
+  leftMotor.spinFor(forward, gearRatio * inches * degreesPerInch,degrees, false);
+  rightMotor.spinFor(forward, gearRatio * inches * degreesPerInch,degrees, true);
 }
 
 void driveStraight2(float inches, float wDiameter) {
-  leftMotor.spinFor(directionType::fwd, gearRatio * inches * (360/(wDiameter*3.14)),rotationUnits::deg, false);
-  rightMotor.spinFor(directionType::fwd, gearRatio * inches * (360/(wDiameter*3.14)),rotationUnits::deg, true);
+  leftMotor.spinFor(forward, gearRatio * inches * (360/(wDiameter*3.14)),degrees, false);
+  rightMotor.spinFor(forward, gearRatio * inches * (360/(wDiameter*3.14)),degrees, true);
 }
 
 void turnRight(float targetDegrees) {
   float rotationDegrees = targetDegrees * gearRatio * wheelTrack / wheelDiameter;
-  leftMotor.spinFor(directionType::fwd, rotationDegrees,rotationUnits::deg, false);
-  rightMotor.spinFor(directionType::rev, rotationDegrees, rotationUnits::deg, true);
+  leftMotor.spinFor(forward, rotationDegrees,degrees, false);
+  rightMotor.spinFor(reverse, rotationDegrees, degrees, true);
 }
 
 void turnRight2 (float targetDegrees, float wTrack, float wDiameter) {
   float rotationDegrees = targetDegrees * gearRatio * wTrack / wDiameter;
-  leftMotor.spinFor(directionType::fwd, rotationDegrees,rotationUnits::deg, false);
-  rightMotor.spinFor(directionType::rev, rotationDegrees,rotationUnits::deg, true);
+  leftMotor.spinFor(forward, rotationDegrees,degrees, false);
+  rightMotor.spinFor(reverse, rotationDegrees,degrees, true);
 }
 
 void makePolygon(float nSides, float sLength){
