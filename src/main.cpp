@@ -16,8 +16,6 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-#include "vex_global.h"
-#include "vex_units.h"
 
 using namespace vex;
 
@@ -32,24 +30,19 @@ void driveStraight(float inches) {
   rightMotor.spinFor(forward, gearRatio * inches * degreesPerInch,degrees, true);
 }
 
-void driveStraight2(float inches, float wDiameter) {
-  leftMotor.spinFor(forward, gearRatio * inches * (360/(wDiameter*3.14)),degrees, false);
-  rightMotor.spinFor(forward, gearRatio * inches * (360/(wDiameter*3.14)),degrees, true);
-}
-
 void turnRight(float targetDegrees) {
   float rotationDegrees = targetDegrees * gearRatio * wheelTrack / wheelDiameter;
-  leftMotor.spinFor(forward, rotationDegrees,degrees, false);
+  leftMotor.spinFor(forward, rotationDegrees, degrees, false);
   rightMotor.spinFor(reverse, rotationDegrees, degrees, true);
 }
 
-void turnRight2 (float targetDegrees, float wTrack, float wDiameter) {
-  float rotationDegrees = targetDegrees * gearRatio * wTrack / wDiameter;
-  leftMotor.spinFor(forward, rotationDegrees,degrees, false);
-  rightMotor.spinFor(reverse, rotationDegrees,degrees, true);
+void turnLeft(float targetDegrees) {
+  float rotationDegrees = targetDegrees * gearRatio * wheelTrack / wheelDiameter;
+  leftMotor.spinFor(reverse, rotationDegrees, degrees, false);
+  rightMotor.spinFor(forward, rotationDegrees, degrees, true);
 }
 
-void makePolygon(float nSides, float sLength){
+void makePolygon(float nSides, float sLength) {
   float polygonDegrees = ((180 * (nSides - 2)) / nSides); 
   for(int i = 0; i <= (int)nSides; i++){
     driveStraight(sLength);
@@ -57,7 +50,7 @@ void makePolygon(float nSides, float sLength){
   }
 }
 
-void solveMaze(){
+void solveMaze() {
   driveStraight(20);
   turnRight(270);
   driveStraight(30);
@@ -66,9 +59,11 @@ void solveMaze(){
   turnRight(90);
   driveStraight(14);
 }
+
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   driveStraight(10);
   turnRight(90);
 }
+

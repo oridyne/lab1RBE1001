@@ -1,4 +1,5 @@
 #include "vex.h"
+#include "vex_brain.h"
 
 using namespace vex;
 using signature = vision::signature;
@@ -13,8 +14,6 @@ motor rightMotor = motor(PORT2, ratio18_1, false);
 motor armMotor = motor(PORT3, ratio18_1, false);
 
 // VEXcode generated functions
-
-
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
