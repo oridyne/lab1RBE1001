@@ -69,13 +69,12 @@ void driveField() {
   float angle = 97;
   driveStraight(13);
   turnLeft(angle); 
-  driveStraight(60);
+  driveStraight(59);
   turnLeft(angle);
-  driveStraight(110);
+  driveStraight(105);
   turnLeft(angle);
-  driveStraight(60);
+  driveStraight(62);
   turnLeft(angle);
-  driveStraight(8);
 }
 
 int main() {
@@ -84,26 +83,39 @@ int main() {
   Brain.Screen.clearScreen();
   float kP = 0.2f;
   double setDistance = 15;
-  leftMotor.setVelocity(75,percent);
-  rightMotor.setVelocity(75,percent);
-  driveField();
+  leftMotor.setVelocity(70,percent);
+  rightMotor.setVelocity(70,percent);
+  /* int buttonW = 40; */
+  /* int buttonH = 40; */
   /* while(true) { */
-  /*   double rfDistance = rangeFinder.distance(inches); */
-  /*   double rfError = rfDistance - setDistance; */
-  /*   Brain.Screen.printAt(30,32,"sonar distance: %d\nerror: %d", rfDistance,rfError); */
-  /*   if (rfError <= 0.005) { */
-  /*     turnLeft(93); */
+  /*   Brain.Screen.drawRectangle(0,0,buttonW,buttonH); */
+  /*   if(Brain.Screen.pressing()) { */
+  /*     int X = Brain.Screen.xPosition(); */
+  /*     int Y = Brain.Screen.yPosition(); */
+  /*     if ((X >= 0 && X <= buttonW) && (Y >= 0 && Y <= buttonH)){ */
+  /*       Brain.Screen.printAt(50,50,"Pressed!"); */
+  /*     } */
+  /*   } else { */
+  /*     Brain.Screen.clearScreen(); */
   /*   } */
-  /*   int left = leftLine.reflectivity(); */
-  /*   int right = rightLine.reflectivity(); */
-  /*   int error = left - right; */
-  /*   leftMotor.setVelocity(30 + (float)error * kP, percent); */
-  /*   rightMotor.setVelocity(30 + (float)error * kP, percent); */
-  /*   leftMotor.spin(forward); */
-  /*   rightMotor.spin(forward); */
-  /*   Brain.Screen.printAt(30,30,"left: %d\nright: %d",left,right); */
-  /*   task::sleep(500); */ 
+  /*   task::sleep(500); */
   /* } */
+  while(true) {
+    double rfDistance = rangeFinder.distance(inches);
+    double rfError = rfDistance - setDistance;
+    int left = leftLine.reflectivity();
+    int right = rightLine.reflectivity();
+    int error = left - right;
+    /* leftMotor.setVelocity(30 + (float)error * kP, percent); */
+    /* rightMotor.setVelocity(30 + (float)error * kP, percent); */
+    /* leftMotor.spin(forward); */
+    /* rightMotor.spin(forward); */
+    Brain.Screen.printAt(30,30,"left: %d",left);
+    Brain.Screen.printAt(30,60,"right: %d",right);
+    Brain.Screen.printAt(30,90,"error: %d",error);
+    /* Brain.Screen.printAt(30,60,"sonar distance: %d error: %d", rfDistance,rfError); */
+    task::sleep(500); 
+  }
   /* while(true) { */
   /*       leftMotor.setVelocity(30 + float(rfError) * kP, percent); */
   /*   rightMotor.setVelocity(30 + float(rfError) * kP, percent); */
