@@ -9,10 +9,13 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor leftMotor = motor(PORT1, ratio18_1, true);
-motor rightMotor = motor(PORT2, ratio18_1, false);
+motor leftMotor = motor(PORT1, ratio18_1, false);
+motor rightMotor = motor(PORT2, ratio18_1, true);
 motor armMotor = motor(PORT3, ratio18_1, false);
 
+line leftLine = line(Brain.ThreeWirePort.A);
+line rightLine = line(Brain.ThreeWirePort.B);
+sonar rangeFinder = sonar(Brain.ThreeWirePort.C);
 // VEXcode generated functions
 
 /**

@@ -6,6 +6,9 @@ extern brain Brain;
 extern motor leftMotor;
 extern motor rightMotor;
 extern motor armMotor;
+extern sonar rangeFinder;
+extern line leftLine;
+extern line rightLine;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

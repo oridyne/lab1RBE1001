@@ -13,9 +13,11 @@
 // leftMotor            motor         1               
 // rightMotor           motor         2               
 // armMotor             motor         3               
+// rangeFinder          sonar         EF
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "vex_global.h"
 
 using namespace vex;
 
@@ -30,40 +32,84 @@ void driveStraight(float inches) {
   rightMotor.spinFor(forward, gearRatio * inches * degreesPerInch,degrees, true);
 }
 
-void turnRight(float targetDegrees) {
+void turnLeft(float targetDegrees) {
   float rotationDegrees = targetDegrees * gearRatio * wheelTrack / wheelDiameter;
   leftMotor.spinFor(forward, rotationDegrees, degrees, false);
   rightMotor.spinFor(reverse, rotationDegrees, degrees, true);
 }
 
-void turnLeft(float targetDegrees) {
+void turnRight(float targetDegrees) {
   float rotationDegrees = targetDegrees * gearRatio * wheelTrack / wheelDiameter;
   leftMotor.spinFor(reverse, rotationDegrees, degrees, false);
   rightMotor.spinFor(forward, rotationDegrees, degrees, true);
 }
 
 void makePolygon(float nSides, float sLength) {
-  float polygonDegrees = ((180 * (nSides - 2)) / nSides); 
-  for(int i = 0; i <= (int)nSides; i++){
-    driveStraight(sLength);
+  float polygonDegrees = (90 - ( 180 * (nSides - 2)) / nSides)+3; 
+  turnRight(polygonDegrees);
+  driveStraight(sLength);
+  polygonDegrees = 183 - ((180 * (nSides - 2)) / nSides); 
+  for(int i = 1; i < (int)nSides; i++){
     turnRight(polygonDegrees);
+    driveStraight(sLength);
   }
 }
 
 void solveMaze() {
   driveStraight(20);
-  turnRight(270);
+  turnLeft(90);
   driveStraight(30);
   turnRight(90);
   driveStraight(18);
-  turnRight(90);
-  driveStraight(14);
+  turnRight(95);
+  driveStraight(17);
+}
+
+void driveField() {
+  float angle = 97;
+  driveStraight(13);
+  turnLeft(angle); 
+  driveStraight(60);
+  turnLeft(angle);
+  driveStraight(110);
+  turnLeft(angle);
+  driveStraight(60);
+  turnLeft(angle);
+  driveStraight(8);
 }
 
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  driveStraight(10);
-  turnRight(90);
+  Brain.Screen.clearScreen();
+  float kP = 0.2f;
+  double setDistance = 15;
+  leftMotor.setVelocity(75,percent);
+  rightMotor.setVelocity(75,percent);
+  driveField();
+  /* while(true) { */
+  /*   double rfDistance = rangeFinder.distance(inches); */
+  /*   double rfError = rfDistance - setDistance; */
+  /*   Brain.Screen.printAt(30,32,"sonar distance: %d\nerror: %d", rfDistance,rfError); */
+  /*   if (rfError <= 0.005) { */
+  /*     turnLeft(93); */
+  /*   } */
+  /*   int left = leftLine.reflectivity(); */
+  /*   int right = rightLine.reflectivity(); */
+  /*   int error = left - right; */
+  /*   leftMotor.setVelocity(30 + (float)error * kP, percent); */
+  /*   rightMotor.setVelocity(30 + (float)error * kP, percent); */
+  /*   leftMotor.spin(forward); */
+  /*   rightMotor.spin(forward); */
+  /*   Brain.Screen.printAt(30,30,"left: %d\nright: %d",left,right); */
+  /*   task::sleep(500); */ 
+  /* } */
+  /* while(true) { */
+  /*       leftMotor.setVelocity(30 + float(rfError) * kP, percent); */
+  /*   rightMotor.setVelocity(30 + float(rfError) * kP, percent); */
+  /*   rightMotor.spin(forward); */
+  /*   leftMotor.spin(forward); */
+  /*   task::sleep(500); */
+  /* } */
 }
 
